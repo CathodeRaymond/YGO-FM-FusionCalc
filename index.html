@@ -92,7 +92,12 @@
 	        <div class="panel panel-default upload-font">
 						<div class="panel-body">
 							<h4>Results: <span id="search-msg"></span></h4>
-							<div id="outputarea"></div>
+							<div class="col-xs-6">
+								<div id="outputleftarea"></div>
+							</div>
+							<div class="col-xs-6">
+								<div id="outputrightarea"></div>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -110,9 +115,13 @@
     var searchType = document.getElementById("monstertype");
     var searchCardType = document.getElementById("cardtype");
 
-    var output = document.getElementById("outputarea");
+    var outputLeft = document.getElementById("outputleftarea");
+		var outputRight = document.getElementById("outputrightarea");
 
-    formatStr = "Left Input:  {left}<br>Right Input: {right}<br>Output: {output} ({attack}/{defense})<br><br>";
+
+    formatStrLeft = "Left Input:  {left}<br>Right Input: {right}<br>Output: {output} ({attack}/{defense})<br><br>";
+
+		formatStrRight = "Left Input:  {left}<br>Right Input: {right}<br>Output: {output} ({attack}/{defense})<br><br>";
 
     function searchDB() {
 				console.log("We ran the search")
@@ -141,8 +150,8 @@
                     leftfuses.filter({attack:{gt:card.attack}},{minattack:{lte:card.attack}});
             }
             if (leftfuses) {
-                output.innerHTML = "<h2>As Left Input:</h2>"
-                output.innerHTML += leftfuses.supplant(formatStr);
+                outputLeft.innerHTML = "<h2>As Left Input:</h2>"
+                outputLeft.innerHTML += leftfuses.supplant(formatStrLeft);
             }
             var rightfuses = genfuseDB({right:{isnocase:term}});
             if (card) {
@@ -150,8 +159,8 @@
                     rightfuses.filter({attack:{gt:card.attack}},{minattack:{lte:card.attack}});
             }
             if (rightfuses) {
-                output.innerHTML += "<br><h2>As Right Input:</h2>"
-                output.innerHTML += rightfuses.supplant(formatStr);
+                outputRight.innerHTML += "<br><h2>As Right Input:</h2>"
+                outputRight.innerHTML += rightfuses.supplant(formatStrRight);
             }
         } else {
             $("#search-msg").innerHTML = "Please enter a search term";
@@ -162,6 +171,10 @@
 
 		// runs search function on every keypress in #cardname input field
 		$("#cardname").keyup(function (){
+			searchType.value = "";
+			searchCardType.value = "";
+			outputLeft.innerHTML = "";
+			outputRight.innerHTML = "";
 			searchDB();
 		});
 
@@ -169,7 +182,8 @@
         searchName.value = "";
         searchType.value = "";
         searchCardType.value = "";
-        output.innerHTML = "";
+        outputLeft.innerHTML = "";
+				outputRight.innerHTML = "";
     }
 
     </script>

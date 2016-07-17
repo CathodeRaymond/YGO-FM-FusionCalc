@@ -119,9 +119,9 @@
 		var outputRight = document.getElementById("outputrightarea");
 
 
-    formatStrLeft = "Left Input:  {left}<br>Right Input: {right}<br>Output: {output} ({attack}/{defense})<br><br>";
+    formatStrLeft = "<div class='result-div'>Left Input:  {left}<br>Right Input: {right}<br>Output: {output} ({attack}/{defense})</div>";
 
-		formatStrRight = "Left Input:  {left}<br>Right Input: {right}<br>Output: {output} ({attack}/{defense})<br><br>";
+		formatStrRight = "<div class='result-div'>Left Input:  {left}<br>Right Input: {right}<br>Output: {output} ({attack}/{defense})</div>";
 
     function searchDB() {
 				console.log("We ran the search")
@@ -150,7 +150,7 @@
                     leftfuses.filter({attack:{gt:card.attack}},{minattack:{lte:card.attack}});
             }
             if (leftfuses) {
-                outputLeft.innerHTML = "<h2>As Left Input:</h2>"
+                outputLeft.innerHTML = "<h2 class='center'>As Left Input</h2>"
                 outputLeft.innerHTML += leftfuses.supplant(formatStrLeft);
             }
             var rightfuses = genfuseDB({right:{isnocase:term}});
@@ -159,7 +159,7 @@
                     rightfuses.filter({attack:{gt:card.attack}},{minattack:{lte:card.attack}});
             }
             if (rightfuses) {
-                outputRight.innerHTML += "<br><h2>As Right Input:</h2>"
+                outputRight.innerHTML += "<h2 class='center'>As Right Input</h2>"
                 outputRight.innerHTML += rightfuses.supplant(formatStrRight);
             }
         } else {

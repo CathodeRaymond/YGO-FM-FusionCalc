@@ -125,6 +125,7 @@
 
     function searchDB() {
 				console.log("We ran the search")
+				clearResults();
         var term = "";
         var card = null;
         if (searchName.value !== "") {
@@ -171,20 +172,26 @@
 
 		// runs search function on every keypress in #cardname input field
 		$("#cardname").keyup(function (){
-			searchType.value = "";
-			searchCardType.value = "";
-			outputLeft.innerHTML = "";
-			outputRight.innerHTML = "";
+			clearAll();
 			searchDB();
 		});
 
     document.getElementById("resetBtn").onclick = function() {
-        searchName.value = "";
-        searchType.value = "";
-        searchCardType.value = "";
-        outputLeft.innerHTML = "";
-				outputRight.innerHTML = "";
+				searchName.value = "";
+				clearAll();
     }
+
+		function clearAll(){
+			searchType.value = "";
+			searchCardType.value = "";
+			outputLeft.innerHTML = "";
+			outputRight.innerHTML = "";
+		}
+
+		function clearResults(){
+			outputLeft.innerHTML = "";
+			outputRight.innerHTML = "";
+		}
 
     </script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
